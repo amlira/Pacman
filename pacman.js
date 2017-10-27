@@ -1,69 +1,123 @@
-var x = 100;
-var y = 100;
-var posX, posY;
+var px = 100; //x do pacman
+var py = 100; //y do pacman
+var posX, posY; //x e y do quadrado
+var pColuna;
+var pLinha;
 var tamBloco = 40;
 var img;
-var cenario = [];
-
-
-function setup() {
-	createCanvas(400, 400);
-	posX = 0;
-	posY = 200;
-}
+var colisao = false;
 
 cenario = [
 	["#", "v", "v", "v", "v", "v", "v", "v", "v", "#"],
+	["#", "v", "v", "v", "v", "#", "v", "v", "v", "#"],
 	["#", "v", "v", "v", "v", "v", "v", "v", "v", "#"],
 	["#", "v", "v", "v", "v", "v", "v", "v", "v", "#"],
-	["#", "v", "v", "v", "v", "v", "v", "v", "v", "#"],
-	["#", "v", "v", "v", "v", "v", "v", "v", "v", "#"],
+	["v", "v", "v", "v", "v", "v", "v", "v", "v", "v"],
 	["#", "v", "v", "v", "v", "v", "v", "v", "v", "#"],
 	["#", "v", "v", "v", "v", "v", "v", "v", "v", "#"],
 	["#", "v", "v", "v", "v", "v", "v", "v", "v", "#"],
 	["#", "v", "v", "v", "v", "v", "v", "v", "v", "#"],
 	["#", "v", "v", "v", "v", "v", "v", "v", "v", "#"]
 	
-	]; 
-
+	];
+	
 // carregar imagem
 function preload() {
   img = loadImage("img.png");
 }
-
-//Gerar cenário
-for(j = 0; j < cenario.length; j++) {
-	for(i = 0; i < cenario.length; i++) {
-		if(cenario[j][i] == "#") {
-			image(img, j*40, i*40);
-		}
-	}
+ 
+function setup() {
+	createCanvas(400, 400);
+	posX = 0;
+	posY = 200;
 }
   
 function draw() { 
 
 	background(105,105,105);
-	/* if (keyIsDown(LEFT_ARROW))
-	x-=5;
+	
+	//Gerar cenário
+	for(j = 0; j < cenario.length; j++) {
+	for(i = 0; i < cenario.length; i++) {
+		if(cenario[i][j] == "#") {
+			image(img, j*tamBloco, i*tamBloco);
+		}
+	}
+}
+	//movimentos do pacman
+	if (keyIsDown(LEFT_ARROW))
+	px-=5;
 
 	if (keyIsDown(RIGHT_ARROW))
-	x+=5;
+	px+=5;
 
 	if (keyIsDown(UP_ARROW))
-	y-=5;
+	py-=5;
 
 	if (keyIsDown(DOWN_ARROW))
-	y+=5;
+	py+=5;
 
-	ellipse(x, y, 50, 50);
+	rect(px, py, 50, 50,30,40);//retangulo bola
+
+	/* //inicio colisao com limite do espaço
+	//limite em x do espaço
+	if (px > 400) {
+		px = 400;
+	}
+	
+	if (px < 0) {
+		px = 0;
+	}
+
+	//limite em y do espaço
+	if (py > 400) {
+		py = 400;
+	}
+	
+	if (py < 0) {
+		py = 0;
+	}
+	
+	//fim colisao */
+	  
   
-	if (posX < 640){
+	//movimentos quadrado
+	if (posX < 400){
 		posX = posX + 15;
 	}
 	else{
 		posX = 0;
-	}
-	rect(posX, posY, 50, 50); */
+	} 
+	rect(posX, posY, 50, 50);
 	
+	// colisao não está dando certo
 
+	function colisao () {
+	pColuna = Math.floor(px/tamBloco); 
+	pLinha = Math.floor(py/tamBloco);
+	
+	if (cenario[pLinha][pColuna] == "#") {
+		return true;
+	}
+	else {
+		return false;
+	}
 }
+	
+	if (keyIsDown(LEFT_ARROW)) {
+		if (colisao (pColuna, pLinha)){
+			px=px+5
+		}
+	}
+	
+/*	if (keyIsDown (RIGHT_ARROW)) {
+		if (!colisao(px+4, py)){
+			px=px-4
+		}
+	}
+*/
+}
+
+
+
+
