@@ -8,16 +8,16 @@ var img;
 var colisao = false;
 
 cenario = [
-	["#", "v", "v", "v", "v", "v", "v", "v", "v", "#"],
-	["#", "v", "v", "v", "v", "#", "v", "v", "v", "#"],
+	["#", "#", "#", "#", "#", "v", "#", "#", "#", "#"],
+	["#", "v", "v", "v", "#", "v", "v", "v", "v", "#"],
 	["#", "v", "v", "v", "v", "v", "v", "v", "v", "#"],
 	["#", "v", "v", "v", "v", "v", "v", "v", "v", "#"],
 	["v", "v", "v", "v", "v", "v", "v", "v", "v", "v"],
 	["#", "v", "v", "v", "v", "v", "v", "v", "v", "#"],
+	["#", "v", "v", "v", "v", "#", "v", "v", "v", "#"],
 	["#", "v", "v", "v", "v", "v", "v", "v", "v", "#"],
 	["#", "v", "v", "v", "v", "v", "v", "v", "v", "#"],
-	["#", "v", "v", "v", "v", "v", "v", "v", "v", "#"],
-	["#", "v", "v", "v", "v", "v", "v", "v", "v", "#"]
+	["#", "#", "#", "#", "#", "v", "#", "#", "#", "#"]
 	
 	];
 	
@@ -46,18 +46,18 @@ function draw() {
 }
 	//movimentos do pacman
 	if (keyIsDown(LEFT_ARROW))
-	px-=5;
+	px-=4;
 
 	if (keyIsDown(RIGHT_ARROW))
-	px+=5;
+	px+=4;
 
 	if (keyIsDown(UP_ARROW))
-	py-=5;
+	py-=4;
 
 	if (keyIsDown(DOWN_ARROW))
-	py+=5;
+	py+=4;
 
-	rect(px, py, 50, 50,30,40);//retangulo bola
+	ellipse(px, py, 40, 40); //imagem do pacman
 
 	/* //inicio colisao com limite do espaço
 	//limite em x do espaço
@@ -81,43 +81,51 @@ function draw() {
 	//fim colisao */
 	  
   
-	//movimentos quadrado
+	/*//movimentos quadrado
 	if (posX < 400){
 		posX = posX + 15;
 	}
 	else{
 		posX = 0;
 	} 
-	rect(posX, posY, 50, 50);
+	rect(posX, posY, 50, 50);*/
 	
 	// colisao não está dando certo
 
 	function colisao () {
-	pColuna = Math.floor(px/tamBloco); 
-	pLinha = Math.floor(py/tamBloco);
-	
-	if (cenario[pLinha][pColuna] == "#") {
-		return true;
-	}
-	else {
-		return false;
-	}
-}
-	
-	if (keyIsDown(LEFT_ARROW)) {
-		if (colisao (pColuna, pLinha)){
-			px=px+5
+		pColuna = Math.floor(px/tamBloco); 
+		pLinha = Math.floor(py/tamBloco);
+		
+		if (cenario[pLinha][pColuna] == "#") {
+			return true;
+		}
+		else {
+			return false;
 		}
 	}
-	
-/*	if (keyIsDown (RIGHT_ARROW)) {
-		if (!colisao(px+4, py)){
-			px=px-4
+		
+		if (keyIsDown(LEFT_ARROW)) {
+			if (colisao (pColuna, pLinha)){
+				px=px+4
+			}
 		}
-	}
-*/
+		
+		if (keyIsDown (RIGHT_ARROW)) {
+			if (colisao (pColuna-1, pLinha-1)){
+				px=px-4
+			}
+		}
+		
+		if (keyIsDown (UP_ARROW)) {
+			if (colisao (pColuna, pLinha)){
+				py=py+4
+			}
+		}
+		
+		if (keyIsDown (DOWN_ARROW)) {
+			if (colisao (pColuna, pLinha)){
+				py=py-4
+			}
+		}
+	
 }
-
-
-
-
