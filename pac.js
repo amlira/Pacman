@@ -16,14 +16,14 @@ var corBranco = true;
 var vidas = 3;
 var pontos = 0;
 
-//variaveis para gerar varios objetos
+/*//variaveis para gerar varios objetos
 var vx = []; 
 var vy = [];
 var vdx = []
 var vdy = []
 var qt = 10;
 var vtam = 40;
-
+*/
 
 // carregar imagem
 function preload() {
@@ -76,13 +76,13 @@ function setup () {
 	dfx = 5 //random (-5, 5);
 	dfy = 0 //random (-5, 5);
 	
-	//gerar varios objetos
+/*	//gerar varios objetos
 	for ( i = 0; i < qt; i++) { 
 		vx[i] = random(0,canvasY); 
 		vy[i] = random(0,canvasY);
 		vdx[i] = random(-6,6);
 		vdy[i] = random(-6,6);
-	}
+	*/
 }
 	
 function draw () {
@@ -99,6 +99,19 @@ function draw () {
 		}
 	}
 	
+	//comidinhas
+	for(j = 0; j < cenario.length; j++) {
+		for(i = 0; i < cenario.length; i++) {
+			if(cenario[i][j] == "v") {
+				//image(img, j*tamBloco, i*tamBloco);
+				fill(255,255,255);
+				ellipse(j*tamBloco+tamBloco/2,i*tamBloco+tamBloco/2,10,10);
+				comidinha = true;
+			}
+			
+		}
+	}
+		
 	//movimentos fantasma
 	fx = fx + dfx;
 	fy = fy + dfy;
@@ -143,15 +156,13 @@ function draw () {
 	}
 	
 	//colisão entre pacMan e fantasma
-	if ( dist(x,y,fx,fx) < raio+tamBloco/2 ) {
+	if (dist(x,y,fx,fy) < raio+tamBloco/2) {
 		if ( trocouCor == false) { 
 			corBranco = ! corBranco;
 			trocouCor = true;
 			vidas--;
 		}
-		
 	}
-	
 	else {
 		trocouCor = false;  
 	}
@@ -163,7 +174,7 @@ function draw () {
 		fill(255,0,0);
 	}
 	
-	for ( i = 0; i < qt; i++) {
+/*	for ( i = 0; i < qt; i++) {
 		vx[i] = vx[i] + vdx[i];
 		vy[i] = vy[i] + vdy[i];
 		//bater na parede e volta
@@ -176,13 +187,12 @@ function draw () {
       
 		}
     	ellipse(vx[i],vy[i],vtam,vtam); 
-	}
+	} */
 
 		
 	text("Vidas: "+vidas, 20, 430);
 	text("Pontos: "+pontos, 240, 430);
 	textSize(25);
-	fill(255, 255, 255)
 	ellipse(fx, fy, 2*raio, 2*raio);
 	pacMan(x, y);
 }
